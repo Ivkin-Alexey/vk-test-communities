@@ -1,0 +1,1 @@
+export * as groupsStore from './slice';
