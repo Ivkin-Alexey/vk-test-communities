@@ -1,18 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM, {createRoot} from 'react-dom/client';
 import {Provider} from 'react-redux'
-import {HomePage} from './pages';
+import {App} from './App';
 import rootReducer from './redux/rootReducer';
 import {configureStore} from "@reduxjs/toolkit";
+import {AdaptivityProvider, ConfigProvider} from "@vkontakte/vkui";
 
 const store = configureStore({ reducer: rootReducer });
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
+
 root.render(
-        <Provider store={store}>
-            <React.StrictMode>
-                <HomePage/>
-            </React.StrictMode>
-        </Provider>
+    <Provider store={store}>
+    <ConfigProvider >
+        <AdaptivityProvider>
+            <App />
+        </AdaptivityProvider>
+    </ConfigProvider>
+    </Provider>,
 );
 
