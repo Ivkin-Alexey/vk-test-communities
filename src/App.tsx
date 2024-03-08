@@ -4,9 +4,8 @@ import {
     AppRoot,
     SplitLayout,
     SplitCol,
-    View,
     PanelHeader,
-    usePlatform, Panel
+    usePlatform,
 } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
 
@@ -18,9 +17,7 @@ const App = () => {
         <AppRoot>
             <SplitLayout header={platform !== 'vkcom' && <PanelHeader delimiter="none"/>}>
                 <SplitCol autoSpaced>
-
-                            <HomePage/>
-
+                    <HomePage/>
                 </SplitCol>
             </SplitLayout>
         </AppRoot>

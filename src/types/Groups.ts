@@ -17,4 +17,4 @@ export interface User {
     "last_name": string
 }
 
-export type SET_GROUPS_LIST = "SET_GROUPS_LIST";
+export type ActivePanels = "friends" | "main";

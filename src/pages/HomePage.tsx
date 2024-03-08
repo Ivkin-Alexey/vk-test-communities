@@ -1,32 +1,33 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {groupsActions} from "../redux/Groups/slice";
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {fetchGroups} from "../api/api";
-import {GetGroupsResponse, IGroup} from "../types";
+import {ActivePanels, GetGroupsResponse, IGroup} from "../types";
 import {
-    Group,
+    Group, List,
     Panel,
     SimpleCell,
-    Header, CustomSelectOption,
+    Header, PanelHeaderBack,
     PanelHeader, FormItem,
     Avatar, FormLayoutGroup,
-    IconButton, Radio,
+    Cell, Radio,
     SplitLayout, Select, Switch,
     SplitCol, View, usePlatform,
 } from '@vkontakte/vkui';
-import {Icon28PaletteOutline, Icon28UserOutline, Icon28SettingsOutline, Icon12Lock} from '@vkontakte/icons';
 import GroupItem from "../components/GroupItem";
 
 export const HomePage = () => {
-    const platform = usePlatform();
-    const groups = useAppSelector(state => state.groups.groups);
+    const {groups} = useAppSelector(state => state.groups);
+    const {selectedGroup} = useAppSelector(state => state.groups);
 
     const options = groups.map(el => {
-        if(el.avatar_color) return el.avatar_color;
+        if (el.avatar_color) return el.avatar_color;
     })
 
-
     const dispatch = useAppDispatch();
+
+    const [activePanel, setActivePanel] = useState<ActivePanels>('main');
+    const [filters, setFilters] = useState([]);
 
     function getGroups() {
         try {
@@ -47,58 +48,74 @@ export const HomePage = () => {
         }, 1000)
     }, [])
 
+    function renderMainPanel() {
+        return (<Panel id="main">
+            <PanelHeader>Группы</PanelHeader>
+            <Group>
+                <FormLayoutGroup>
+                    <FormItem top="Фильтры">
+                        <SimpleCell Component="label" after={<Switch defaultChecked/>}>
+                            С друзьями
+                        </SimpleCell>
+                        <Radio name="radio" value="1" defaultChecked>
+                            Все группы
+                        </Radio>
+                        <Radio name="radio" value="2">
+                            Открытые группы
+                        </Radio>
+                        <Radio name="radio" value="3">
+                            Закрытые группы
+                        </Radio>
+                    </FormItem>
+                </FormLayoutGroup>
+                {/*<FormItem*/}
+                {/*    top="Администратор"*/}
+                {/*    htmlFor="select-id"*/}
+                {/*    bottom="Пример использования Select для выбора администратора из списка"*/}
+                {/*>*/}
+                {/*    <Select*/}
+                {/*        id="select-id"*/}
+                {/*        placeholder="Не выбран"*/}
+                {/*        options={options}*/}
+                {/*        renderOption={({ option, ...restProps }) => (*/}
+                {/*            <CustomSelectOption*/}
+                {/*                {...restProps}*/}
+                {/*                key={option.value}*/}
+                {/*                before={<Avatar size={24} src={option.avatar} />}*/}
+                {/*            />*/}
+                {/*        )}*/}
+                {/*    />*/}
+                {/*</FormItem>*/}
+            </Group>
 
-    // @ts-ignore
+            <Group header={<Header mode="secondary">Группы</Header>}>
+                {groups.map((el: IGroup, i) => <GroupItem {...el} setActivePanel={setActivePanel} key={i}/>)}
+            </Group>
+        </Panel>)
+    }
+
+    function renderFriendsPanel() {
+        return (
+            <Panel id="friends">
+                <PanelHeader before={<PanelHeaderBack onClick={() => setActivePanel('main')}/>}>
+                    Друзья в группе "{selectedGroup?.name}"
+                </PanelHeader>
+                <List>
+                    {selectedGroup?.friends.map(item => {
+                        const {first_name, last_name} = item;
+
+                        return <Cell key={first_name} before={<Avatar/>}>
+                            {first_name + " " + last_name}
+                        </Cell>
+                    })}
+                </List>
+            </Panel>)
+    }
+
     return (
-        <>
-            <SplitLayout header={platform !== 'vkcom' && <PanelHeader delimiter="none"/>}>
-                <SplitCol autoSpaced>
-                    <View activePanel="main">
-                        <Panel id="main">
-                            <PanelHeader>Список групп</PanelHeader>
-                            <Group>
-                                <FormLayoutGroup>
-                                    <FormItem top="Фильтры">
-                                        <SimpleCell Component="label" after={<Switch defaultChecked />}>
-                                            С друзьями
-                                        </SimpleCell>
-                                        <Radio name="radio" value="1" defaultChecked>
-                                            Все группы
-                                        </Radio>
-                                        <Radio name="radio" value="2">
-                                            Открытые группы
-                                        </Radio>
-                                        <Radio name="radio" value="3">
-                                            Закрытые группы
-                                        </Radio>
-                                    </FormItem>
-                                </FormLayoutGroup>
-                                {/*<FormItem*/}
-                                {/*    top="Администратор"*/}
-                                {/*    htmlFor="select-id"*/}
-                                {/*    bottom="Пример использования Select для выбора администратора из списка"*/}
-                                {/*>*/}
-                                {/*    <Select*/}
-                                {/*        id="select-id"*/}
-                                {/*        placeholder="Не выбран"*/}
-                                {/*        options={options}*/}
-                                {/*        renderOption={({ option, ...restProps }) => (*/}
-                                {/*            <CustomSelectOption*/}
-                                {/*                {...restProps}*/}
-                                {/*                key={option.value}*/}
-                                {/*                before={<Avatar size={24} src={option.avatar} />}*/}
-                                {/*            />*/}
-                                {/*        )}*/}
-                                {/*    />*/}
-                                {/*</FormItem>*/}
-                            </Group>
-                            <Group header={<Header mode="secondary">Группы</Header>}>
-                                {groups.map((el: IGroup, i) => <GroupItem {...el} key={i}/>)}
-                            </Group>
-                        </Panel>
-                    </View>
-                </SplitCol>
-            </SplitLayout>
-        </>
+        <View activePanel={activePanel}>
+            {renderMainPanel()}
+            {renderFriendsPanel()}
+        </View>
     );
 };

@@ -1,9 +1,11 @@
 import {createSlice} from "@reduxjs/toolkit";
 import * as I from './interfaces';
-import {ISetGroups} from "./interfaces";
+import {ISelectGroup, ISetGroups} from "./interfaces";
+import {IGroup} from "../../types";
 
 const initialState: I.IGroupsState = {
-    groups: []
+    groups: [],
+    selectedGroup: null
 };
 
 export const groupsSlice = createSlice({
@@ -12,6 +14,9 @@ export const groupsSlice = createSlice({
     reducers: {
         setGroups: (state, action: ISetGroups) => {
             state.groups = action.payload;
+        },
+        selectGroup: (state, action: ISelectGroup) => {
+            state.selectedGroup = action.payload;
         },
         // clear: () => {
         //     return initialState;

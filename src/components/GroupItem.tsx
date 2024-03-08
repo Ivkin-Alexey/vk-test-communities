@@ -1,23 +1,29 @@
 import React from 'react';
 import {SimpleCell, Avatar, Link} from "@vkontakte/vkui";
 import {ActivePanels, IGroup} from "../types";
+import {useDispatch} from "react-redux";
+import {groupsActions} from "../redux/Groups/slice";
 
-interface IGroupItemProps extends IGroup {
+interface IGroupItem extends IGroup{
     setActivePanel(panel: ActivePanels): void
 }
 
-const GroupItem: React.FC<IGroupItemProps> = (props) => {
+const GroupItem: React.FC<IGroupItem> = (props: IGroupItem) => {
 
     const {name, setActivePanel, friends, members_count, avatar_color, closed} = props;
+
+    const dispatch = useDispatch();
 
     function renderSimpleCellChildren() {
         return (
             <div style={{display: "flex", justifyContent: "space-between", gap: '20px'}}>
                 <p><b>{name}</b></p>
                 {closed ? <p>Закрытая группа</p> : <p>Открытая группа</p>}
-                {friends && <p>Друзей: {friends?.length}</p>}
                 {members_count > 0 && <p>Подписчиков: {members_count}</p>}
-                {friends && <p>Друзей: {<Link onClick={() => setActivePanel('friends')}>{friends?.length}</Link>}</p>}
+                {friends && <p>Друзей: {<Link onClick={() => {
+                    setActivePanel('friends');
+                    dispatch(groupsActions.selectGroup({name, friends}))
+                }}>{friends?.length}</Link>}</p>}
             </div>
         )
     }

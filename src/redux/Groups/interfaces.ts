@@ -1,14 +1,22 @@
-import {Group} from "../../types";
+import {IGroup, User} from "../../types";
 
 interface IAction<P> {
     type: string;
     payload: P;
 }
 
-export type IGroups = Group[];
+export type IGroups = IGroup[];
+export type IFriends = User[];
 
-export interface IGroupsState {
-    groups: Group[];
+export interface ISelectedGroup {
+    name: string;
+    friends: IFriends;
 }
 
-export type ISetGroups = IAction<IGroups>
+export interface IGroupsState {
+    groups: IGroup[] | [];
+    selectedGroup: ISelectedGroup | null;
+}
+
+export type ISetGroups = IAction<IGroups>;
+export type ISelectGroup = IAction<ISelectedGroup>;
