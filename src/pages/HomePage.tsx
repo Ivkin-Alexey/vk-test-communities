@@ -17,10 +17,15 @@ export const HomePage = () => {
             fetchGroups().then(response => {
                 if (response.result === 1 && response.data) {
                     dispatch(groupsActions.setGroups(response.data));
-                } else throw new Error("Ошибка сервера");
+                } else {
+                    console.error("Ошибка сервера");
+                    throw new Error("Ошибка сервера");
+
+                }
             })
         } catch (e) {
             console.log(e);
+            throw new Error("Ошибка сервера");
         }
     }
 

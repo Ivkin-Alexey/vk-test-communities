@@ -29,6 +29,7 @@ export const MainPanel = ({setPanel}: IMainPanel) => {
         const defaultOptions: CustomSelectOptionInterface[] = [{label: "all", value: "all"}];
         const [displayedGroups, setDisplayedGroups] = useState<IGroup[]>([]);
         const [options, setOptions] = useState<CustomSelectOptionInterface[]>(defaultOptions);
+        const [disabled, setDisabled] = useState<boolean>(true);
 
         function handleSwitch(e: React.ChangeEvent<HTMLInputElement>): void {
             dispatch(groupsActions.setFilters({...filters, onlyWithFriends: Boolean(e.target.checked)}));
@@ -50,6 +51,8 @@ export const MainPanel = ({setPanel}: IMainPanel) => {
         useEffect(() => {
             setOptions(createOptions(groups, defaultOptions));
             setDisplayedGroups(groups);
+            if(groups.length > 0 ) setDisabled(false);
+            else setDisabled(true);
         }, [groups])
 
         useEffect(() => {
@@ -67,17 +70,17 @@ export const MainPanel = ({setPanel}: IMainPanel) => {
                         <FormItem top="Группы с друзьями">
                             <SimpleCell
                                 Component="label"
-                                after={<Switch onChange={handleSwitch}/>}
+                                after={<Switch onChange={handleSwitch} disabled={disabled}/>}
                             >
                                 Группы только с друзьями
                             </SimpleCell>
                         </FormItem>
                         <FormItem top="Приватность">
-                            <Radio name="radio" value="all" defaultChecked onChange={handleRadio}>Все группы</Radio>
-                            <Radio name="radio" value="onlyOpen" onChange={handleRadio}>
+                            <Radio name="radio" value="all" defaultChecked onChange={handleRadio} disabled={disabled}>Все группы</Radio>
+                            <Radio name="radio" value="onlyOpen" onChange={handleRadio} disabled={disabled}>
                                 Открытые группы
                             </Radio>
-                            <Radio name="radio" value="onlyClosed" onChange={handleRadio}>
+                            <Radio name="radio" value="onlyClosed" onChange={handleRadio} disabled={disabled}>
                                 Закрытые группы
                             </Radio>
                         </FormItem>
@@ -85,6 +88,7 @@ export const MainPanel = ({setPanel}: IMainPanel) => {
                             <Select
                                 value={filters.color}
                                 onChange={handleSelect}
+                                disabled={disabled}
                                 options={options}
                                 renderOption={({option, ...restProps}) => {
                                     return (
