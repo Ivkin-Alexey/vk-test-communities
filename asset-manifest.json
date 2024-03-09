@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/vk-test-communities/static/css/main.b1995a52.css",
-    "main.js": "/vk-test-communities/static/js/main.a51d4de8.js",
+    "main.js": "/vk-test-communities/static/js/main.db1599f9.js",
     "index.html": "/vk-test-communities/index.html",
     "main.b1995a52.css.map": "/vk-test-communities/static/css/main.b1995a52.css.map",
-    "main.a51d4de8.js.map": "/vk-test-communities/static/js/main.a51d4de8.js.map"
+    "main.db1599f9.js.map": "/vk-test-communities/static/js/main.db1599f9.js.map"
   },
   "entrypoints": [
     "static/css/main.b1995a52.css",
-    "static/js/main.a51d4de8.js"
+    "static/js/main.db1599f9.js"
   ]
 }
