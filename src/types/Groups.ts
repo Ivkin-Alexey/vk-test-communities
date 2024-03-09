@@ -19,10 +19,4 @@ export interface User {
 
 export type IPrivate = "all" | "onlyOpen" | "onlyClosed" | string;
 
-export interface Filters {
-    color: string ;
-    closed: boolean | null;
-    onlyWithFriends: boolean;
-}
-
-export type ActivePanels = "friends" | "main";
+export type IActivePanel = "friends" | "main";

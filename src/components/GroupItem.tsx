@@ -1,16 +1,16 @@
 import React from 'react';
 import {SimpleCell, Avatar, Link} from "@vkontakte/vkui";
-import {ActivePanels, IGroup} from "../types";
+import {IActivePanel, IGroup} from "../types";
 import {useDispatch} from "react-redux";
 import {groupsActions} from "../redux/Groups/slice";
 
 interface IGroupItem extends IGroup {
-    setActivePanel(panel: ActivePanels): void;
+    setPanel(panel: IActivePanel): void;
 }
 
 export const GroupItem: React.FC<IGroupItem> = (props: IGroupItem) => {
 
-    const {name, setActivePanel, friends, members_count, avatar_color, closed} = props;
+    const {name, setPanel, friends, members_count, avatar_color, closed} = props;
 
     const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ export const GroupItem: React.FC<IGroupItem> = (props: IGroupItem) => {
                 {closed ? <p>Закрытая группа</p> : <p>Открытая группа</p>}
                 {members_count > 0 && <p>Подписчиков: {members_count}</p>}
                 {friends && <p>Друзей: {<Link onClick={() => {
-                    setActivePanel('friends');
+                    setPanel('friends');
                     dispatch(groupsActions.selectGroup({name, friends}))
                 }}>{friends?.length}</Link>}</p>}
             </div>
