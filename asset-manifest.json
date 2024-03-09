@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/http//Ivkin-Alexey.github.io/vk-test-communities/static/css/main.b1995a52.css",
+    "main.js": "/http//Ivkin-Alexey.github.io/vk-test-communities/static/js/main.a51d4de8.js",
+    "index.html": "/http//Ivkin-Alexey.github.io/vk-test-communities/index.html",
+    "main.b1995a52.css.map": "/http//Ivkin-Alexey.github.io/vk-test-communities/static/css/main.b1995a52.css.map",
+    "main.a51d4de8.js.map": "/http//Ivkin-Alexey.github.io/vk-test-communities/static/js/main.a51d4de8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b1995a52.css",
+    "static/js/main.a51d4de8.js"
+  ]
+}
