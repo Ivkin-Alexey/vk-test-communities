@@ -4,11 +4,11 @@ import {ActivePanels, IGroup} from "../types";
 import {useDispatch} from "react-redux";
 import {groupsActions} from "../redux/Groups/slice";
 
-interface IGroupItem extends IGroup{
-    setActivePanel(panel: ActivePanels): void
+interface IGroupItem extends IGroup {
+    setActivePanel(panel: ActivePanels): void;
 }
 
-const GroupItem: React.FC<IGroupItem> = (props: IGroupItem) => {
+export const GroupItem: React.FC<IGroupItem> = (props: IGroupItem) => {
 
     const {name, setActivePanel, friends, members_count, avatar_color, closed} = props;
 
@@ -36,5 +36,3 @@ const GroupItem: React.FC<IGroupItem> = (props: IGroupItem) => {
         </SimpleCell>
     );
 };
-
-export default GroupItem;
