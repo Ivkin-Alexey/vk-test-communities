@@ -1,4 +1,4 @@
-import {IGroup, User} from "../../types";
+import {IGroup, IUser} from "../../types";
 
 interface IAction<P> {
     type: string;
@@ -6,7 +6,7 @@ interface IAction<P> {
 }
 
 export type IGroups = IGroup[];
-export type IFriends = User[];
+export type IFriends = IUser[];
 
 export interface ISelectedGroup {
     name: string;

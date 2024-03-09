@@ -1,4 +1,4 @@
-export interface GetGroupsResponse {
+export interface IGetGroupsResponse {
     result: 1 | 0,
     data?: IGroup[]
 }
@@ -9,10 +9,10 @@ export interface IGroup {
     "closed": boolean,
     "avatar_color"?: string,
     "members_count": number,
-    "friends"?: User[]
+    "friends"?: IUser[]
 }
 
-export interface User {
+export interface IUser {
     "first_name": string,
     "last_name": string
 }

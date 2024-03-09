@@ -1,8 +1,8 @@
-import {GetGroupsResponse} from "../types";
+import {IGetGroupsResponse} from "../types";
 
 export function fetchGroups() {
 
-        const response: GetGroupsResponse = {result: 0};
+        const response: IGetGroupsResponse = {result: 0};
 
         return fetch("groups.json")
             .then(response => response.json())

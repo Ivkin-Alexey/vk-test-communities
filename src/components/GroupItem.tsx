@@ -9,7 +9,6 @@ interface IGroupItem extends IGroup {
 }
 
 export const GroupItem: React.FC<IGroupItem> = (props: IGroupItem) => {
-
     const {name, setPanel, friends, members_count, avatar_color, closed} = props;
 
     const dispatch = useDispatch();

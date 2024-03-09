@@ -2,7 +2,7 @@ import {IGroup} from "../types";
 import {CustomSelectOptionInterface} from "@vkontakte/vkui";
 import {IFilters} from "../redux/Groups/interfaces";
 
-export function utils(arr: IGroup[], defaultOptions: CustomSelectOptionInterface[]): CustomSelectOptionInterface[] {
+export function createOptions(arr: IGroup[], defaultOptions: CustomSelectOptionInterface[]): CustomSelectOptionInterface[] {
     const newArr: string[] = [];
     arr.forEach((el: IGroup) => {
         if (el.avatar_color) newArr.push(el.avatar_color);

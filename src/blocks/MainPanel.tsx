@@ -14,7 +14,7 @@ import {
 import {IActivePanel, IGroup, IPrivate} from "../types";
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {groupsActions} from "../redux/Groups/slice";
-import {utils, filterGroups} from "../utils/utils";
+import {createOptions, filterGroups} from "../utils";
 import {GroupListBlock} from "./GroupListBlock";
 
 interface IMainPanel {
@@ -48,8 +48,8 @@ export const MainPanel = ({setPanel}: IMainPanel) => {
         }
 
         useEffect(() => {
-            setOptions(utils(groups, defaultOptions));
-            setDisplayedGroups(groups)
+            setOptions(createOptions(groups, defaultOptions));
+            setDisplayedGroups(groups);
         }, [groups])
 
         useEffect(() => {
@@ -58,7 +58,6 @@ export const MainPanel = ({setPanel}: IMainPanel) => {
         }, [filters])
 
         return (
-
             <>
                 <PanelHeader>
                     Группы

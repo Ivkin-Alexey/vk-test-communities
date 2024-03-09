@@ -10,7 +10,6 @@ interface IGroupListBlock {
 }
 
 export const GroupListBlock = ({setPanel, displayedGroups}: IGroupListBlock) => {
-
     const {groups} = useAppSelector(state => state.groups);
 
     function renderGroupList() {
